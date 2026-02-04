@@ -7,7 +7,7 @@ def register_user(user: UserCreate):
     hashed_pwd = hash_password(user.password)
     user_data = {
         "id": len(fake_users_db) + 1,
-        "username": user.username,
+        # "username": user.username,
         "email": user.email,
         "hashed_password": hashed_pwd
     }

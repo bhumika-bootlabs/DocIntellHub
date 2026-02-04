@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from app.models.documents import Document
 from app.common_utils.file_handler import save_file
+from app.auth_rbac.rbac import require_domain_access
 
 def upload_document(db: Session, file, owner_id: int):
     filename, path = save_file(file)
