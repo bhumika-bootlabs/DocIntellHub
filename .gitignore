@@ -13,3 +13,5 @@ temp_audio.wav
 
 # OS
 .DS_Store
+
+.env
