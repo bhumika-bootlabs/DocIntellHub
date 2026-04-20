@@ -5,7 +5,7 @@ from app.core.config import settings
 import os
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from app.core.roles import ADMIN
+from app.core.roles import  ROLE_DOMAIN_MAP
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

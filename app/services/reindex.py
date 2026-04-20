@@ -18,14 +18,14 @@
 #     db.close()
 from app.api.utility.db import SessionLocal
 from app.models.extracted_text import ExtractedText
-from app.services.embedding_service import VECTOR_STORE, chunk_text, embed_and_store
+from app.services.embedding_service import chunk_text, embed_and_store
 
 
 def rebuild_index():
     db = SessionLocal()
     try:
         # 1. Clear existing in-memory vector store
-        VECTOR_STORE.clear()
+        # VECTOR_STORE.clear()
 
         # 2. Fetch all extracted text (PDF + audio)
         records = db.query(ExtractedText).all()

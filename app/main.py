@@ -35,3 +35,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+from app.core.weaviate_client import client
+
+@app.on_event("shutdown")
+def shutdown_event():
+    client.close()

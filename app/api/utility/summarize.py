@@ -25,19 +25,26 @@ class SummarizeRequest(BaseModel):
 #     }
 
 from app.services.summarization import effective_extractive_summary
+# from app.schemas.summarize import SummarizeRequest
 
 router = APIRouter()
+
 @router.post("/summarize/text")
 def summarize_text(
     data: SummarizeRequest,
     user=Depends(require_roles(["admin", "lawyer", "researcher", "finance", "business"]))
 ):
-    text = data.text
+    text = data.text.strip()
 
-    if data.method == "extractive":
+    if not text:
+        return {"summary": ""}
+
+    method = data.method or "extractive"
+
+    if method == "extractive":
         summary = effective_extractive_summary(text)
     else:
-        summary = effective_extractive_summary(text)  # fallback for now
+        summary = effective_extractive_summary(text)
 
     return {"summary": summary}
 

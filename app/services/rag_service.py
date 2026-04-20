@@ -11,26 +11,21 @@ If the answer is not present in the context, say:
 "I could not find this information in the uploaded documents."
 """
 
-def generate_answer(context_chunks: list[str], question: str) -> str:
-    context = "\n\n".join(context_chunks)
+def ask_llm(question, context):
 
     response = client.chat.completions.create(
         model="llama-3.1-8b-instant",
         messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {
+                "role": "system",
+                "content": SYSTEM_PROMPT
+            },
             {
                 "role": "user",
-                "content": f"""
-Context:
-{context}
-
-Question:
-{question}
-"""
+                "content": f"Context:\n{context}\n\nQuestion:\n{question}"
             }
         ],
         temperature=0.2
     )
 
     return response.choices[0].message.content
-

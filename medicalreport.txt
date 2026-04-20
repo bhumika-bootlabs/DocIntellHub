@@ -1,0 +1,20 @@
+MEDICAL CONSULTATION REPORT
+
+Patient Name: John Smith
+Age: 45 
+
+The patient visited the clinic complaining of frequent headaches
+and dizziness over the past two weeks.
+
+After examination, the patient's blood pressure was recorded at
+145 over 92, indicating mild hypertension.
+
+The doctor advised reducing salt intake, maintaining a balanced
+diet, and engaging in regular physical exercise.
+
+Medication prescribed includes a low-dose antihypertensive tablet
+to be taken once daily for the next 30 days.
+
+A follow-up visit has been scheduled after one month to monitor
+blood pressure levels.
+

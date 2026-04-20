@@ -13,7 +13,7 @@ class UserLogin(BaseModel):
 
 class UserOut(BaseModel):
     id: int
-    username: str
+    # username: str
     email: str
     role: str
 

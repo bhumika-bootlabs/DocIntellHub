@@ -2,10 +2,14 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
+import sys
+import os
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from alembic import context
 from app.models.base import Base   # wherever your Base is
-from app.models import user    # import models
+from app.models.users import User    # import models
+from app.models.documents import Document
 
 
 # this is the Alembic Config object, which provides

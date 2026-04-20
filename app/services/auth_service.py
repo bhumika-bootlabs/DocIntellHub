@@ -14,9 +14,20 @@ def create_user(db: Session, email: str, password: str,role: str):
     db.refresh(user)
     return user
 
+# def authenticate_user(db: Session, email: str, password: str):
+#     user = db.query(User).filter(User.email == email).first()
+#     if not user or not verify_password(password, user.hashed_password):
+#         return None
+#     token = create_access_token({"sub": user.email, "role": user.role})
+#     return token
 def authenticate_user(db: Session, email: str, password: str):
     user = db.query(User).filter(User.email == email).first()
-    if not user or not verify_password(password, user.hashed_password):
+
+    if not user:
         return None
-    token = create_access_token({"sub": user.email, "role": user.role})
-    return token
+
+    if not verify_password(password, user.hashed_password):
+        return None
+
+    return user  
+
