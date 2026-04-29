@@ -2,6 +2,14 @@
 import streamlit as st
 import requests
 
+def get_score_emoji(score):
+    if score > 0.8:
+        return "🟢"
+    elif score > 0.5:
+        return "🟡"
+    else:
+        return "🔴"
+        
 ROLE_MODE_MAP = {
     "lawyer": ["legal"],
     "doctor": ["healthcare"],
@@ -350,10 +358,28 @@ if st.session_state.token:
 
 
             if res.status_code == 200:
-                st.markdown(f"**Answer:** {res.json()['answer']}")
+                data = res.json()
+
+                # ✅ Answer
+                st.markdown(f"**Answer:** {data['answer']}")
+
+                # ✅ Evaluation Scores
+                st.subheader("📊 Evaluation Scores")
+
+                scores = data.get("evaluation", {})
+
+                col1, col2, col3 = st.columns(3)
+
+                f = scores.get("faithfulness", 0)
+                r = scores.get("answer_relevancy", 0)
+                p = scores.get("context_precision", 0)
+
+                col1.metric("Faithfulness", f"{get_score_emoji(f)} {round(f, 2)}")
+                col2.metric("Relevancy", f"{get_score_emoji(r)} {round(r, 2)}")
+                col3.metric("Context Precision", f"{get_score_emoji(p)} {round(p, 2)}")
+
             else:
                 st.error(res.text)
-
-
+        
 
 
