@@ -331,11 +331,15 @@ if st.session_state.token:
         st.subheader("Ask Your Docs")
         role = (st.session_state.role or "").lower().strip()
         st.write("DEBUG role:", st.session_state.role)
+        # st.write("DEBUG selected mode:", mode)
         allowed_modes = ROLE_MODE_MAP.get(role, [])
 
         if not allowed_modes:
             st.warning("No modes available for your role.")
             st.stop()
+
+        if "mode" in st.session_state:
+            del st.session_state["mode"]
 
         mode = st.selectbox(
             "Select Assistant Mode",
@@ -364,19 +368,19 @@ if st.session_state.token:
                 st.markdown(f"**Answer:** {data['answer']}")
 
                 # ✅ Evaluation Scores
-                st.subheader("📊 Evaluation Scores")
+                # st.subheader("📊 Evaluation Scores")
 
-                scores = data.get("evaluation", {})
+                # scores = data.get("evaluation", {})
 
-                col1, col2, col3 = st.columns(3)
+                # col1, col2, col3 = st.columns(3)
 
-                f = scores.get("faithfulness", 0)
-                r = scores.get("answer_relevancy", 0)
-                p = scores.get("context_precision", 0)
+                # f = scores.get("faithfulness", 0)
+                # r = scores.get("answer_relevancy", 0)
+                # p = scores.get("context_precision", 0)
 
-                col1.metric("Faithfulness", f"{get_score_emoji(f)} {round(f, 2)}")
-                col2.metric("Relevancy", f"{get_score_emoji(r)} {round(r, 2)}")
-                col3.metric("Context Precision", f"{get_score_emoji(p)} {round(p, 2)}")
+                # col1.metric("Faithfulness", f"{get_score_emoji(f)} {round(f, 2)}")
+                # col2.metric("Relevancy", f"{get_score_emoji(r)} {round(r, 2)}")
+                # col3.metric("Context Precision", f"{get_score_emoji(p)} {round(p, 2)}")
 
             else:
                 st.error(res.text)

@@ -20,7 +20,7 @@ from app.core.security import create_access_token
 from app.core.roles import ROLE_DOMAIN_MAP
 from app.services.domain_classifier import detect_domain
 from app.services.rag_ingest import ingest_text_to_rag
-from app.services.evaluation_service import evaluate_response
+# from app.services.evaluation_service import evaluate_response
 
 
 import os, traceback
@@ -30,11 +30,11 @@ router = APIRouter()
 
 ROLE_MODE_MAP = {
     "lawyer": ["legal"],
-    "doctor": ["healthcare"],
+    "doctor": ["medical"],
     "researcher": ["academic"],
     "finance": ["finance"],
     "business": ["business"],
-    "admin": ["legal", "finance", "academic", "healthcare", "business"]
+    "admin": ["legal", "finance", "academic", "medical", "business"]
 }
 
 
@@ -289,14 +289,14 @@ def ask_question(
     answer = ask_llm(question=question, context=context)
     print(context_chunks)
 
-    scores = evaluate_response(question, answer, contexts)
-    print("EVALUATION SCORES:", scores)
+    # scores = evaluate_response(question, answer, context_chunks)
+    # print("EVALUATION SCORES:", scores)
 
     return {
         "mode": mode,
         "question": question,
         "answer": answer,
-        "evaluation": scores
+        # "evaluation": scores
     }
 
 router.include_router(summarize.router, tags=["Summarization"])
